@@ -1,0 +1,4 @@
+TOPS : T-Shirt, Hoodie
+COLORS : Red, Black, Blue, Yellow, Green
+GRAPHICS : Dinosaur, Skull, Unicorn, Superhero
+SIZES : Small, Medium, Large, XL, XXL
