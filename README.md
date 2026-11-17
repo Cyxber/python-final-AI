@@ -3,19 +3,16 @@ Programming Logic, Fall semester 2026
 
 ## Streamlit clothing store (`app.py`)
 
-The Streamlit app recommends a clothing combination based on a shopper's
-preferred color and size. It uses the choices in `menu.txt`, asks for a phone
-number and delivery address at checkout, and offers a downloadable receipt.
-Orders and customer details are not saved to a file or database.
-
-The recommendation matches the selected color and size and uses the first
-listed top and graphic from the menu.
+The Streamlit app lets shoppers choose a top, color, graphic, and size from
+`menu.txt`. It asks for a phone number and delivery address at checkout and
+offers a downloadable receipt. Orders and customer details are not saved to a
+file or database.
 
 ### Requirements
 
 - Python 3.10+
 - Streamlit (install with `pip install -r requirements.txt`)
-- `app.py`, `read_menu.py`, `recommendations.py`, and `menu.txt` in the project
+- `app.py`, `read_menu.py`, `store_menu.py`, and `menu.txt` in the project
   directory
 
 ### Run the Streamlit app locally
@@ -44,7 +41,7 @@ python3 finalproj.py
 The menu is read from `menu.txt`, which should contain `TOPS`, `COLORS`,
 `GRAPHICS`, and `SIZES` categories with comma-separated choices.
 
-## Test the recommendation logic
+## Test menu parsing
 
 ```bash
 python3 -m unittest discover -s tests

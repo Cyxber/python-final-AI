@@ -3,12 +3,12 @@ from datetime import datetime
 import streamlit as st
 
 from read_menu import read_menu
-from recommendations import menu_options, recommend_outfit
+from store_menu import menu_options
 
 
 st.set_page_config(page_title="Online Clothing Store", layout="centered")
 st.title("Online Clothing Store")
-st.write("Find a clothing match, then download a receipt for your order.")
+st.write("Choose items from the menu, then download a receipt for your order.")
 
 menu_items = read_menu()
 categories = ("TOPS", "COLORS", "GRAPHICS", "SIZES")
@@ -23,28 +23,24 @@ if missing_categories:
     )
     st.stop()
 
-st.subheader("Your preferences")
-color_column, size_column = st.columns(2)
+st.subheader("Choose your clothing")
+top_column, color_column = st.columns(2)
+with top_column:
+    top = st.selectbox("Top", options["TOPS"])
 with color_column:
-    preferred_color = st.selectbox("Preferred color", options["COLORS"])
+    color = st.selectbox("Color", options["COLORS"])
+graphic_column, size_column = st.columns(2)
+with graphic_column:
+    graphic = st.selectbox("Graphic", options["GRAPHICS"])
 with size_column:
-    preferred_size = st.selectbox("Size", options["SIZES"])
+    size = st.selectbox("Size", options["SIZES"])
 
-recommendation = recommend_outfit(menu_items, preferred_color, preferred_size)
-if recommendation is None:
-    st.error("No matching clothing option is available for those preferences.")
-    st.stop()
-
-st.subheader("Recommended match")
-top_column, color_column, graphic_column, size_column = st.columns(4)
-top_column.metric("Top", recommendation["top"])
-color_column.metric("Color", recommendation["color"])
-graphic_column.metric("Graphic", recommendation["graphic"])
-size_column.metric("Size", recommendation["size"])
-st.caption(
-    "The menu only contains category options, so this suggestion matches your "
-    "selected color and size and uses the first listed top and graphic."
-)
+st.subheader("Order summary")
+summary_columns = st.columns(4)
+summary_columns[0].metric("Top", top)
+summary_columns[1].metric("Color", color)
+summary_columns[2].metric("Graphic", graphic)
+summary_columns[3].metric("Size", size)
 
 st.subheader("Checkout")
 with st.form("checkout_form"):
@@ -61,10 +57,10 @@ if submitted:
                 "CLOTHING STORE ORDER RECEIPT",
                 f"Date: {datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')}",
                 f"Phone Number: {phone.strip()}",
-                f"Top: {recommendation['top']}",
-                f"Color: {recommendation['color']}",
-                f"Graphic: {recommendation['graphic']}",
-                f"Size: {recommendation['size']}",
+                f"Top: {top}",
+                f"Color: {color}",
+                f"Graphic: {graphic}",
+                f"Size: {size}",
                 f"Address: {address.strip()}",
                 "",
             )
