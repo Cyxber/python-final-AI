@@ -1,39 +1,51 @@
-# Python-Progamming-Logic
+# Python-Programming-Logic
 Programming Logic, Fall semester 2026
 
-## Online Clothing Store (`finalproj.py`)
-# Readme made with AI
+## Streamlit clothing store (`app.py`)
 
-`finalproj.py` is a command-line order-entry program for an online clothing
-store. It asks for a phone number, clothing selections, and a delivery address,
-then saves the order.
+The Streamlit app recommends a clothing combination based on a shopper's
+preferred color and size. It uses the choices in `menu.txt`, asks for a phone
+number and delivery address at checkout, and offers a downloadable receipt.
+Orders and customer details are not saved to a file or database.
+
+The recommendation matches the selected color and size and uses the first
+listed top and graphic from the menu.
 
 ### Requirements
 
-- Python 3
-- `finalproj.py`, `read_menu.py`, and `menu.txt` in the project directory
-- Run the program from the project directory so its output files are written
-  there
+- Python 3.10+
+- Streamlit (install with `pip install -r requirements.txt`)
+- `app.py`, `read_menu.py`, `recommendations.py`, and `menu.txt` in the project
+  directory
 
-There are no third-party package dependencies.
+### Run the Streamlit app locally
 
-### Run
+```bash
+streamlit run app.py
+```
+
+### Deploy on Streamlit Community Cloud
+
+Push this repository to GitHub, create a Community Cloud app from the repository,
+select the `main` branch, and set the app file to `app.py`. Community Cloud
+installs Streamlit from `requirements.txt`.
+
+## Command-line clothing store (`finalproj.py`)
+
+The original command-line order-entry program is retained. It asks for a phone
+number, clothing selections, and a delivery address, then saves the order.
+
+Run it from the project directory:
 
 ```bash
 python3 finalproj.py
 ```
 
-The menu is loaded from `menu.txt`. It should contain the categories `TOPS`,
-`COLORS`, `GRAPHICS`, and `SIZES`, with comma-separated choices after each
-category.
+The menu is read from `menu.txt`, which should contain `TOPS`, `COLORS`,
+`GRAPHICS`, and `SIZES` categories with comma-separated choices.
 
-### Order flow
+## Test the recommendation logic
 
-1. The program displays the menu loaded by `read_menu.py`.
-2. It asks for a phone number, top, color, graphic, size, and address.
-3. It appends the phone number to `phone_number.txt` and the order to
-   `order_history.txt`.
-4. It replaces `human_report.txt` with a receipt for the latest order.
-
-Phone number and address prompts require a non-empty response. The clothing
-choices are recorded as entered; they are not checked against the menu.
+```bash
+python3 -m unittest discover -s tests
+```
